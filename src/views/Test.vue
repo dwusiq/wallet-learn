@@ -96,6 +96,7 @@ export default defineComponent({
        alert("storageKey can not null");
        return;
      }
+     //localstorage和sessionstorage都是缓存数据，前置关闭浏览器扔保留数据，后者在关闭浏览器之后则不会保留数据
      sessionStorage.setItem(this.storageKey,this.storageValue);
    },
    showStorage():void {
