@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import walletPage from '../views/WalletPage.vue' //从WalletPage.vue文件引入class名为‘walletPage’的标签
+import test from '../views/Test.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/wallet',
     name: 'WalletPage',
     component: walletPage
+  },
+  {
+    path: '/Test',
+    name: 'Test',
+    component: test
   }
 ]
 
