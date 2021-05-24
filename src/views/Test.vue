@@ -15,6 +15,18 @@
     <button @click="httpRandom">http请求获取随机数</button>
     <input type="text" v-model="httpRandomResult"/>
   </div>
+  <div class="storageTest">
+    <ul>
+    <li>storageKey:</li><li><input type="text" v-model="storageKey"/></li>    
+    </ul>
+    <ul>
+    <li>storageValue:</li><li> <input type="text" v-model="storageValue"/></li>    
+    </ul>
+    <ul>
+       <li><button @click="saveStorage">保存</button></li>
+       <li><button @click="showStorage">显示</button></li>
+    </ul>
+  </div>
 </template>
 
 
@@ -38,7 +50,9 @@ export default defineComponent({
     data() {
     return {
       descriptionMsg: "测试页，用于测试语法学习",
-      httpRandomResult: null
+      httpRandomResult: null,
+      storageKey: "",
+      storageValue: ""
     };
   },
 
@@ -47,7 +61,7 @@ export default defineComponent({
   //3、setup函数只能是同步的不能是异步的
   // 参考：https://blog.csdn.net/qq_41328247/article/details/109286022
  setup(){
-    const name =ref('小李')    //名字
+    const name =ref('小君')    //名字
     const age=ref(18)    //年纪
     const inputMsg=ref("默认内容")    //默认内容
 
@@ -76,7 +90,25 @@ export default defineComponent({
       axios
       .get('https://www.random.org/integers/?num=1&min=1&max=100&col=1&base=10&format=plain&rnd=new')
       .then(response => (this.httpRandomResult = response.data))
-
+   },
+   saveStorage():void {
+     if(null==this.storageKey||this.storageKey.length==0){
+       alert("storageKey can not null");
+       return;
+     }
+     sessionStorage.setItem(this.storageKey,this.storageValue);
+   },
+   showStorage():void {
+     if(null==this.storageKey||this.storageKey.length==0){
+       alert("storageKey can not null");
+       return;
+     }
+     let val:string|null = sessionStorage.getItem(this.storageKey);
+    if(null==val||val.length==0){
+       alert("not found value by："+this.storageKey);
+       return;
+     }
+     this.storageValue=val;
    }
 
   }
