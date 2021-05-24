@@ -11,13 +11,16 @@
     <input type="text" v-model="inputMsg"/>
     <input type="text" v-model="reversedMessage"/>
   </div>
+  <div class="axiosTest">
+    <button @click="httpRandom">http请求获取随机数</button>
+    <input type="text" v-model="httpRandomResult"/>
+  </div>
 </template>
 
 
 <script lang="ts">
-// import { Options, Vue } from 'vue-class-component';
+import axios from "axios";
 import { defineComponent, reactive,ref,computed } from 'vue'
-
 
 /**
  * 定义一个结构体
@@ -34,7 +37,8 @@ export default defineComponent({
     //用于初始化属性值
     data() {
     return {
-      descriptionMsg: "测试页，用于测试语法学习"
+      descriptionMsg: "测试页，用于测试语法学习",
+      httpRandomResult: null
     };
   },
 
@@ -64,8 +68,19 @@ export default defineComponent({
     return {
       name,age,plusOne,book,inputMsg,reversedMessage
     }
-  }
+  },  
+  
+  //函数在这里,就可以在模板中引用了
+  methods:{
+   httpRandom():void {
+      axios
+      .get('https://www.random.org/integers/?num=1&min=1&max=100&col=1&base=10&format=plain&rnd=new')
+      .then(response => (this.httpRandomResult = response.data))
 
+   }
+
+  }
 })
+
 </script>
 
